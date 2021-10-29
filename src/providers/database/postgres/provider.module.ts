@@ -18,14 +18,17 @@ import { PostgresConfigService } from 'src/config/database/postgres/config.servi
             type: 'postgres' as DatabaseType,
             host: config.host,
             port: config.port,
-            username: config.username,
+            username: config.user,
             password: config.password,
             database: config.database,
             entities: [],
             autoLoadEntities: true,
             ssl: {
               rejectUnauthorized: false
-            },  
+            },
+            options: {
+              ssl: true,
+            }  
           }
         }
 
