@@ -21,7 +21,11 @@ import { PostgresConfigService } from 'src/config/database/postgres/config.servi
             username: config.username,
             password: config.password,
             database: config.database,
-            entities: [],  
+            entities: [],
+            autoLoadEntities: true,
+            ssl: {
+              rejectUnauthorized: false
+            },  
           }
         }
 
@@ -33,6 +37,7 @@ import { PostgresConfigService } from 'src/config/database/postgres/config.servi
           password: _postgresConfigService.password,
           database: _postgresConfigService.database,
           entities: [],
+          autoLoadEntities: true,
         }
       },
       inject: [PostgresConfigService],
