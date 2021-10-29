@@ -18,6 +18,6 @@ export class AppModule {
   static port: number;
 
   constructor(private _configService: ConfigService){
-    AppModule.port = this._configService.get<number>(configurationKeys.APP_PORT);
+    AppModule.port = this._configService.get<number>(configurationKeys.PORT);
   }
 }

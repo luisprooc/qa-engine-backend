@@ -1,5 +1,5 @@
 const enum configurationKeys {
-  APP_PORT = 'APP_PORT'
+  PORT = 'PORT'
 }
 
 export default configurationKeys;
