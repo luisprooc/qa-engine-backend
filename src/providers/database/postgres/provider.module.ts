@@ -8,17 +8,33 @@ import { PostgresConfigService } from 'src/config/database/postgres/config.servi
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [PostgresConfigModule],
-      useFactory: async (_postgresConfigService: PostgresConfigService) => ({
-        type: 'postgres' as DatabaseType,
-        host: _postgresConfigService.host,
-        port: _postgresConfigService.port,
-        username: _postgresConfigService.username,
-        password: _postgresConfigService.password,
-        database: _postgresConfigService.database,
-        entities: [
-          // ... All MySQL based schemas/entities
-        ],
-      }),
+      useFactory: async (_postgresConfigService: PostgresConfigService) => {
+        
+        if (process.env.NODE_ENV === 'production') {
+          const parse = require('pg-connection-string').parse;
+          const config = parse(process.env.DATABASE_URL);
+
+          return {
+            type: 'postgres' as DatabaseType,
+            host: config.host,
+            port: config.port,
+            username: config.username,
+            password: config.password,
+            database: config.database,
+            entities: [],  
+          }
+        }
+
+        return {
+          type: 'postgres' as DatabaseType,
+          host: _postgresConfigService.host,
+          port: _postgresConfigService.port,
+          username: _postgresConfigService.username,
+          password: _postgresConfigService.password,
+          database: _postgresConfigService.database,
+          entities: [],
+        }
+      },
       inject: [PostgresConfigService],
     } as TypeOrmModuleAsyncOptions),
   ],
