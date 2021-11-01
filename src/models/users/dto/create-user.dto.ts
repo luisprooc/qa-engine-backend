@@ -4,7 +4,7 @@ export class CreateUserDto {
 
   @ApiProperty({ nullable: false,  readOnly: true, description: 'It\'s generated automatically' })
   @IsInt()
-  id: number;
+  readonly id: number;
 
   @ApiProperty({ nullable: false,  example: 'example@gmail.com' })
   @IsString()
@@ -28,9 +28,9 @@ export class CreateUserDto {
 
   @ApiProperty({ nullable: false, description: 'It\'s generated automatically', readOnly: true })
   @IsDate()
-  createdDate: Date;
+  readonly createdDate: Date;
 
   @ApiProperty({ nullable: false, description: 'It\'s generated automatically', readOnly: true })
   @IsDate()
-  updatedDate: Date;
+  readonly updatedDate: Date;
 }
