@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { PostgresConfigModule } from 'src/config/database/postgres/config.module';
 import { PostgresConfigService } from 'src/config/database/postgres/config.service';
-
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -21,7 +20,7 @@ import { PostgresConfigService } from 'src/config/database/postgres/config.servi
             username: config.user,
             password: config.password,
             database: config.database,
-            entities: [],
+            entities: ['/src/models/**/**/*.entity{.ts,.js}'],
             autoLoadEntities: true,
             ssl: {
               rejectUnauthorized: false
@@ -39,8 +38,10 @@ import { PostgresConfigService } from 'src/config/database/postgres/config.servi
           username: _postgresConfigService.username,
           password: _postgresConfigService.password,
           database: _postgresConfigService.database,
-          entities: [],
+          entities: [__dirname + '/../**/**/entitities/*.entity{.ts,.js}'],
           autoLoadEntities: true,
+          synchronize: true,
+          migrationsRun: true,
         }
       },
       inject: [PostgresConfigService],
