@@ -8,7 +8,7 @@ export class Answer extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true, type: 'varchar', length: 250 })
+  @Column({ nullable: false, type: 'varchar', length: 250 })
   description: string;
 
   @ManyToOne(() => User, user => user.answers)
@@ -17,7 +17,7 @@ export class Answer extends BaseEntity {
   @ManyToOne(() => Question, question => question.answers)
   question: Question;
 
-  @ManyToMany(() => User, user => user.answers)
+  @ManyToMany(() => User, user => user.answers, { nullable: true })
   @JoinTable()
   upvotes: User[];
 
