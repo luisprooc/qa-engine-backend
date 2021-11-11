@@ -1,4 +1,6 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Answer } from '../../../models/answers/entities/answer.entity';
+import { Question } from '../../questions/entities/question.entity';
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class User extends BaseEntity {
@@ -20,6 +22,15 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   isActive: boolean;
+
+  @OneToMany(() => Question, question => question.user)
+  questions: Question[];
+
+  @OneToMany(() => Answer, answer => answer.user)
+  answers: Answer[];
+
+  @ManyToMany(() => Answer, answer => answer.upvotes)
+  upvotes: Answer[];
 
   @CreateDateColumn()
   createdDate: Date;
