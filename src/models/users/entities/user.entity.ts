@@ -23,10 +23,10 @@ export class User extends BaseEntity {
   @Column({ default: false })
   isActive: boolean;
 
-  @OneToMany(() => Question, question => question.user)
+  @OneToMany(() => Question, question => question.user, { eager: true })
   questions: Question[];
 
-  @OneToMany(() => Answer, answer => answer.user)
+  @OneToMany(() => Answer, answer => answer.user, { eager: true })
   answers: Answer[];
 
   @ManyToMany(() => Answer, answer => answer.upvotes)
