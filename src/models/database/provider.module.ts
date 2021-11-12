@@ -12,7 +12,7 @@ import { PostgresConfigService } from 'src/config/database/postgres/config.servi
 
         const defaultConnections = {
           type: 'postgres' as DatabaseType,
-          entities: [__dirname + '/../**/**/entitities/*.entity{.ts,.js}'],
+          entities: [__dirname + '/../**/**/entities/*.entity{.ts,.js}'],
           autoLoadEntities: true,
         }
         
