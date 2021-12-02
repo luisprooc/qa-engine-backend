@@ -1,5 +1,4 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { CreateUserDto } from './create-user.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class GetUserDto {
 
@@ -8,6 +7,9 @@ export class GetUserDto {
 
   @ApiProperty({ readOnly: true })
   readonly email: string;
+
+  @ApiProperty({ readOnly: true })
+  readonly password: string;
 
   @ApiProperty({ readOnly: true })
   readonly fullName: string;

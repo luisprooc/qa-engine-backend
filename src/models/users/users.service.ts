@@ -3,13 +3,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { GetUserDto } from './dto/get-user-dto';
-import { UserMapper } from 'src/common/utils/mappers/user.mapper';
+import { UsersMapper } from 'src/common/utils/mappers/user.mapper';
 
 @Injectable()
 export class UsersService {
   constructor( 
     private _userRepository: UserRepository,
-    private _userMapper: UserMapper  
+    private _userMapper: UsersMapper  
   ){}
 
   async create(user: CreateUserDto) {
