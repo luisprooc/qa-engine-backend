@@ -2,8 +2,6 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { UsersService } from '../models/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { GetUserDto } from 'src/models/users/dto/get-user-dto';
-import { ConfigService } from '@nestjs/config';
-import configurationKeys from 'src/config/app/configuration.keys';
 import { CreateAuthLoginDto } from './dto/create-auth-login.dto';
 
 @Injectable()
@@ -11,7 +9,6 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    private configService: ConfigService
   ) {}
 
   async login(createAuthLoginDto: CreateAuthLoginDto) {
@@ -20,11 +17,7 @@ export class AuthService {
     if(user.password == createAuthLoginDto.password) {
       const payload = { username: user.email, sub: user.id };
       return {
-        access_token: this.jwtService.sign(payload, {
-          privateKey: this.configService.get<string>(
-            configurationKeys.JWT_SECRET_KEY
-          )
-        }),
+        access_token: this.jwtService.sign(payload),
       };
     }
     throw new ForbiddenException('Username or password incorrect');
@@ -37,11 +30,7 @@ export class AuthService {
     };
 
     return {
-      api_key: this.jwtService.sign(payload, {
-        privateKey: this.configService.get<string>(
-          configurationKeys.JWT_SECRET_KEY
-        )
-      })
+      api_key: this.jwtService.sign(payload)
     }
   }
 }

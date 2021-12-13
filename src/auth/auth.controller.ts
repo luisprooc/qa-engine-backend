@@ -1,8 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, ValidationPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { CreateAuthLoginDto } from './dto/create-auth-login.dto';
-import { CreateAuthDto } from './dto/create-auth.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -15,7 +14,7 @@ export class AuthController {
   }
 
   @Post()
-  login(@Body() createAuthLoginDto: CreateAuthLoginDto) {
+  login(@Body(new ValidationPipe()) createAuthLoginDto: CreateAuthLoginDto) {
     return this.authService.login(createAuthLoginDto);
   }
 

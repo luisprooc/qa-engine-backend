@@ -3,16 +3,16 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/models/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule } from '@nestjs/config';
-
+import { jwtSecret } from './utils/jwt.secret';
 @Module({
   imports: [
     UsersModule, 
-    ConfigModule,
     JwtModule.register({
+      secret: jwtSecret,
       signOptions: { 
         algorithm: 'HS512',
         issuer: 'QaEngineBackend',
+        
       },
     })
   ],
