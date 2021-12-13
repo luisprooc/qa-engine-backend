@@ -45,7 +45,11 @@ export class UsersService {
 
   async findOneByEmail(email: string): Promise<GetUserDto> | null {
     const user = await this._userRepository.findOne({ where: { email } });
-    return user ? this._userMapper.entityToDto(user) : null; 
+
+    if(!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user; 
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
