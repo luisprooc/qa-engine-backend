@@ -1,9 +1,10 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { GetUserDto } from './dto/get-user-dto';
 import { UsersMapper } from 'src/common/utils/mappers/user.mapper';
+import { encryptPassword } from 'src/common/utils/encrypt/encrypt-password.helper';
 
 @Injectable()
 export class UsersService {
@@ -14,15 +15,17 @@ export class UsersService {
 
   async create(user: CreateUserDto) {
 
-    const userExist = await this.findOneByEmail(user.email);
-    if(userExist){
+    const userExist = await this._userRepository.findOne({ where: { email: user.email } });
+
+    if (userExist) {
       throw new BadRequestException('User with this email already exist');
     } 
-
+    user.password = await encryptPassword(user.password);
     await this._userRepository.save(user);
 
     return {
-      message: 'User has been created'
+      message: 'User has been created',
+      statusCode: HttpStatus.CREATED
     };
   }
 

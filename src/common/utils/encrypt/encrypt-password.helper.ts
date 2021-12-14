@@ -11,6 +11,6 @@ export const encryptPassword = (password: string) => {
   return argon2.hash(password, encryptOptions);
 }
 
-export const verifyPassword = (hash: string , password: string) => {
-  return argon2.verify(hash, password);
+export const verifyPassword = async (hash: string , password: string) => {
+  return await argon2.verify(hash, password, encryptOptions);
 }
