@@ -4,6 +4,7 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/models/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtSecret } from './utils/jwt.secret';
+import { JwtStrategy } from './utils/jwt.strategy';
 @Module({
   imports: [
     UsersModule, 
@@ -12,11 +13,10 @@ import { jwtSecret } from './utils/jwt.secret';
       signOptions: { 
         algorithm: 'HS512',
         issuer: 'QaEngineBackend',
-        
       },
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}
