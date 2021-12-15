@@ -6,6 +6,7 @@ import { PostgresDatabaseProviderModule } from './models/database/provider.modul
 import { UsersModule } from './models/users/users.module';
 import { QuestionsModule } from './models/questions/questions.module';
 import { AnswersModule } from './models/answers/answers.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -15,7 +16,8 @@ import { AnswersModule } from './models/answers/answers.module';
     PostgresDatabaseProviderModule,
     UsersModule,
     QuestionsModule,
-    AnswersModule
+    AnswersModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
