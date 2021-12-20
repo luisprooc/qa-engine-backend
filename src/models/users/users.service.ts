@@ -4,7 +4,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { GetUserDto } from './dto/get-user-dto';
 import { UsersMapper } from 'src/common/utils/mappers/user.mapper';
-import { encryptPassword } from 'src/common/utils/encrypt/encrypt-password.helper';
+import { encryptPassword, verifyPassword } from 'src/common/utils/encrypt/encrypt-password.helper';
+import { UpdatePasswordUserDto } from './dto/update-password-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -47,7 +48,7 @@ export class UsersService {
     return user;
   }
 
-  async findOneByEmail(email: string): Promise<GetUserDto> | null {
+  async findOneByEmail(email: string): Promise<GetUserDto> {
     const user = await this._userRepository.findOne({ where: { email } });
 
     if(!user) {
@@ -56,11 +57,39 @@ export class UsersService {
     return user; 
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<GetUserDto> {
+    try {
+      await this._userRepository.update(id,updateUserDto);
+      return await this._userRepository.findOne(id);
+    }
+
+    catch {
+      throw new BadRequestException('User hasn\'t been updated');
+    }
   }
 
-  async remove(id: number): Promise<any> {
+  async updatePassword(id: number, updatePasswordUserDto: UpdatePasswordUserDto): Promise<GetUserDto> {
+    try {
+
+      const user = await this._userRepository.findOne(id);
+      const verify = await verifyPassword(user?.password, updatePasswordUserDto.oldPassword);
+
+      if (!verify) {
+        throw Error;
+      }
+
+      await this._userRepository.update(id,{ 
+        password: await encryptPassword(updatePasswordUserDto.password)
+      });
+      return await this.findOne(id);
+    }
+
+    catch {
+      throw new BadRequestException('Password not updated');
+    }
+  }
+
+  async remove(id: number): Promise<object> {
     await this.findOne(id);
     await this._userRepository.delete(id);
     return {
