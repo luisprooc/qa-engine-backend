@@ -43,7 +43,8 @@ export class UsersService {
     if(!user) {
       throw new NotFoundException('User not found');
     }
-    return this._userMapper.entityToDto(user);
+    delete user.password;
+    return user;
   }
 
   async findOneByEmail(email: string): Promise<GetUserDto> | null {

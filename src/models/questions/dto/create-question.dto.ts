@@ -1,11 +1,8 @@
-import { IsString, IsInt, IsDate, IsArray, Length } from 'class-validator';
+import { IsString, IsInt, IsDate, IsArray, Length, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from 'src/models/users/entities/user.entity';
 
 export class CreateQuestionDto {
-
-  @ApiProperty({ nullable: false,  readOnly: true, description: 'It\'s generated automatically' })
-  @IsInt()
-  readonly id: number;
 
   @ApiProperty({ nullable: false, maxLength: 70, minLength: 10 })
   @Length(10,70)
@@ -19,17 +16,10 @@ export class CreateQuestionDto {
 
   @ApiProperty({ nullable: false, description: 'Must be a user Id' })
   @IsInt()
-  user: number;
+  user: User;
 
   @ApiProperty({ nullable: true, readOnly: true })
   @IsArray()
+  @IsOptional()
   readonly answers?: [];
-
-  @ApiProperty({ nullable: false, description: 'It\'s generated automatically', readOnly: true })
-  @IsDate()
-  readonly createdDate: Date;
-
-  @ApiProperty({ nullable: false, description: 'It\'s generated automatically', readOnly: true })
-  @IsDate()
-  readonly updatedDate: Date;
 }

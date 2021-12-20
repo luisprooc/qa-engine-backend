@@ -1,4 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { User } from 'src/models/users/entities/user.entity';
 import { CreateQuestionDto } from './create-question.dto';
 
 export class GetQuestionDto extends PartialType(CreateQuestionDto) {
@@ -10,6 +11,6 @@ export class GetQuestionDto extends PartialType(CreateQuestionDto) {
   readonly description?: string;
 
   @ApiProperty({ readOnly: true })
-  readonly user: number;
+  readonly user: User;
   
 }
