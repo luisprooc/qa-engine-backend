@@ -1,9 +1,9 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { UsersService } from '../models/users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { GetUserDto } from 'src/models/users/dto/get-user-dto';
+import { GetUserDto } from '../models/users/dto/get-user-dto';
 import { CreateAuthLoginDto } from './dto/create-auth-login.dto';
-import { verifyPassword } from 'src/common/utils/encrypt/encrypt-password.helper';
+import { verifyPassword } from '../common/utils/encrypt/encrypt-password.helper';
 
 @Injectable()
 export class AuthService {

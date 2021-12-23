@@ -12,7 +12,7 @@ import {
   ApiBadRequestResponse, ApiForbiddenResponse, 
   ApiNotFoundResponse, ApiResponse, ApiTags 
 } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { UpdatePasswordUserDto } from './dto/update-password-user.dto';
 
 @ApiTags('users')

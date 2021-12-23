@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { User } from 'src/models/users/entities/user.entity';
+import { User } from '../../../models/users/entities/user.entity';
 import { CreateQuestionDto } from './create-question.dto';
 
 export class GetQuestionDto extends PartialType(CreateQuestionDto) {

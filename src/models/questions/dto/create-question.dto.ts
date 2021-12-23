@@ -1,6 +1,6 @@
-import { IsString, IsInt, IsDate, IsArray, Length, IsOptional } from 'class-validator';
+import { IsString, IsInt, IsArray, Length, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'src/models/users/entities/user.entity';
+import { User } from '../../../models/users/entities/user.entity';
 
 export class CreateQuestionDto {
 
