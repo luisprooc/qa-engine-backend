@@ -4,7 +4,7 @@ import { encryptKey } from '../../../common/constants/encrypt/encrypt-secret.con
 const encryptOptions = {
   saltLength: 16,
   hashLength: 16,
-  secret: Buffer.from(encryptKey)
+  secret: Buffer.from(encryptKey ? encryptKey : '')
 }
 
 export const encryptPassword = (password: string) => {
