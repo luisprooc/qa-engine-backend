@@ -1,8 +1,4 @@
-import { JwtService, JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersModule } from '../models/users/users.module';
-import { UsersMapper } from '../common/utils/mappers/user.mapper';
-import { UserRepository } from '../models/users/user.repository';
 import { UsersService } from '../models/users/users.service';
 import { AuthService } from './auth.service';
 
