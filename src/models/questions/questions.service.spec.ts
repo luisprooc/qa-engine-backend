@@ -7,7 +7,10 @@ describe('QuestionsService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [QuestionsService],
-    }).compile();
+    })
+    .overrideProvider(QuestionsService)
+    .useValue({})
+    .compile();
 
     service = module.get<QuestionsService>(QuestionsService);
   });

@@ -1,5 +1,5 @@
-import { ConfigService } from "@nestjs/config";
-import configurationKeys from "src/config/app/configuration.keys";
+import { ConfigService } from '@nestjs/config';
+import configurationKeys from '../../../config/app/configuration.keys';
 
 const configService = new ConfigService();
 

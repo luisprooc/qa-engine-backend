@@ -1,10 +1,10 @@
 import * as argon2 from 'argon2';
-import { encryptKey } from 'src/common/constants/encrypt/encrypt-secret.constants';
+import { encryptKey } from '../../../common/constants/encrypt/encrypt-secret.constants';
 
 const encryptOptions = {
   saltLength: 16,
   hashLength: 16,
-  secret: Buffer.from(encryptKey)
+  secret: Buffer.from(encryptKey ? encryptKey : '')
 }
 
 export const encryptPassword = (password: string) => {

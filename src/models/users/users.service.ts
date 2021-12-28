@@ -3,8 +3,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { GetUserDto } from './dto/get-user-dto';
-import { UsersMapper } from 'src/common/utils/mappers/user.mapper';
-import { encryptPassword, verifyPassword } from 'src/common/utils/encrypt/encrypt-password.helper';
+import { UsersMapper } from '../../common/utils/mappers/user.mapper';
+import { encryptPassword, verifyPassword } from '../../common/utils/encrypt/encrypt-password.helper';
 import { UpdatePasswordUserDto } from './dto/update-password-user.dto';
 
 @Injectable()
@@ -44,7 +44,8 @@ export class UsersService {
     if(!user) {
       throw new NotFoundException('User not found');
     }
-    return this._userMapper.entityToDto(user);
+    delete user.password;
+    return user;
   }
 
   async findOneByEmail(email: string): Promise<GetUserDto> {
