@@ -5,9 +5,7 @@ describe('UsersService', () => {
   let service: UsersService;
 
   const mockUserService = {
-    findOneByEmail: jest.fn(() => {
-      return {};
-    })
+    findOneByEmail: jest.fn().mockImplementation(() => ({}))
   };
 
   beforeEach(async () => {

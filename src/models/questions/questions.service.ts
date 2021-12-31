@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { QuestionRepository } from './question.repository';
@@ -11,21 +11,30 @@ export class QuestionsService {
 
   async create(createQuestionDto: CreateQuestionDto) {
     const question = await this.questionRepository.save(createQuestionDto);
+    return question;
   }
 
   async findAll() {
     return await this.questionRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} question`;
+  async findOne(id: number) {
+    const question = await this.questionRepository.findOne(id);
+
+    if(!question) {
+      throw new NotFoundException('Question Not Found');
+    }
+    return question;
   }
 
-  update(id: number, updateQuestionDto: UpdateQuestionDto) {
-    return `This action updates a #${id} question`;
+  async update(id: number, updateQuestionDto: UpdateQuestionDto) {
+    await this.questionRepository.update(id, updateQuestionDto);
+    return await this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} question`;
+  async remove(id: number) {
+    await this.questionRepository.findOne(id);
+    await this.questionRepository.delete(id);
+    return 'Question has been delete';
   }
 }
